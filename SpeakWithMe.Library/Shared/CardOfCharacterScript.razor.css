@@ -1,0 +1,27 @@
+﻿.card {
+    position: relative;
+    padding: 0.5em;
+    background-color: #fff;
+    border-width: 0;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.card__title {
+    font-weight: bold;
+    margin-left: 0.5em;
+}
+
+.card__script-icon {
+    margin-left: calc(100% - 6em - 0.5em);
+    width: 6em;
+    object-fit: contain;
+}
+
+.card__favorite-icon {
+    position: absolute;
+    left: 0.5em;
+    bottom: 0.5em;
+    width: 2em;
+    object-fit: contain;
+}

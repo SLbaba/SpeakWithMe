@@ -1,0 +1,13 @@
+﻿<div class="card" @onclick="OnClick">
+    <p class="card__title">@Scene.SceneName</p>
+    <img class="card__script-icon" src="@Scene.ImageUrl" alt="@Scene.SceneName" />
+    <img class="card__favorite-icon" src="images/favorite.svg" alt="favorite" />
+</div>
+
+@code {
+    [Parameter,EditorRequired]
+    public required Scene Scene { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

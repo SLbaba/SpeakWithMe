@@ -1,0 +1,27 @@
+﻿.main-layout-body {
+    height: 90vh;
+    overflow: auto;
+}
+
+.sidebar {
+    height: 10vh;
+    border-top-style: solid;
+    border-top-width: 0.01px;
+    border-color: #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.nav-item {
+    width: 20%;
+    padding: 0.8em 0;
+    font-size: 0.8em;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.nav-item img { height: 50%; }
+
+.nav-item p { margin-bottom: 0; }

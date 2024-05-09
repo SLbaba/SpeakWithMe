@@ -1,0 +1,61 @@
+﻿@inherits LayoutComponentBase
+
+<HeadContent>
+    <style>
+        :root {
+            box-sizing: border-box;
+            font-size: calc(1vw + 0.6em);/*响应式设计:基础字号会根据视口大小适当缩放*/
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        
+        *::-webkit-scrollbar {
+            width: 0;
+        }
+
+    /* body * + * { */
+        /*     margin-top: 1.5em; */
+        /* }  */
+    </style>
+</HeadContent>
+
+<div class="main-layout-body">
+    @Body
+</div>
+
+<nav class="sidebar">
+    <a class="nav-item">
+        <img alt="Home"
+             src="images/home.svg" />
+        <p>首页</p>
+    </a>
+    <a class="nav-item">
+        <img alt="AI"
+             src="images/ai.svg" />
+        <p>AI畅聊</p>
+    </a>
+    <a class="nav-item">
+        <img alt="Saved"
+             src="images/saved.svg" />
+        <p>已保存</p>
+    </a>
+    <a class="nav-item">
+        <img alt="Challenge"
+             src="images/trophy.svg" />
+        <p>挑战</p>
+    </a>
+    <a class="nav-item">
+        <img alt="Profile"
+             src="images/profile.svg" />
+        <p>个人资料</p>
+    </a>
+</nav>

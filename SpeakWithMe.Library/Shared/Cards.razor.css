@@ -1,0 +1,9 @@
+﻿.cards-container {  
+    max-width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40vw, 1fr));
+    grid-auto-rows: 1fr;
+    grid-gap: 0.5em;
+}
+

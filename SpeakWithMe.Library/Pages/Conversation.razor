@@ -1,0 +1,83 @@
+﻿@page "/conversation/{sceneKey}"
+@using Microsoft.JSInterop
+@inject NavigationManager _navigationManager
+@inject IParcelBoxService _parcelBoxService
+@inject ISpeechService _speechService
+@inject ITranslateService _translateService
+@inject IChatGptService _chatGptService
+@inject IJSRuntime _jsRuntime
+
+<PageTitle>Conversation</PageTitle>
+
+@* <button @onclick="Click"></button> *@
+<div class="chat-page">
+    <div class="chat-frame-top">
+        <img alt="return"
+             @onclick="@(() => _navigationManager.NavigateTo(""))"
+             src="images/x.svg" />
+        <span class="chat-frame-top__title">@Title</span>
+        <img alt="goal"
+             src="images/goal.svg" />
+        <img alt="setting"
+             src="images/setting.svg" />
+    </div>
+    <div class="chat-frame">
+        @foreach (var sceneMessage in _sceneMessages.Where(sm=>sm.Message.Role!=ChatHistory.Role.System))
+        {
+            <div class="message">
+                <p class="message__text">@sceneMessage.Message.Content</p>
+                <div class="message__functions">
+                    <img alt="sound"
+                         @onclick="async () => await _speechService.SpeakTextAsync(sceneMessage.Message.Content)"
+                         src="images/sound.svg" />
+                    <img alt="translate"
+                         @onclick="() => sceneMessage.ShowTranslation = !sceneMessage.ShowTranslation"
+                         src="images/translate.svg" />
+                </div>
+                @if (sceneMessage.ShowTranslation && sceneMessage.HasTranslated)
+                {
+                    <hr />
+                    <p>@sceneMessage.Translation</p>
+                }
+            </div>
+        }
+        <div class="virtual-message @(_showVirtualMessage ? "is-open" : string.Empty)">
+            <div class="virtual-message__operation-tips">
+                按下录音
+                <img alt="bulb"
+                     src="images/bulb.svg"
+                     @onclick="() => _showVirtualLanguageTips = !_showVirtualLanguageTips" />
+            </div>
+            <div class="virtual-message__language-tips @(_showVirtualLanguageTips ? "is-open" : string.Empty)">试着说:<br />Yes,I'm Amy's friend.Nice to meet you.Robin!</div>
+        </div>
+        @* @foreach (var message in _messages) { *@
+        @*     <div class="message"> *@
+        @*         <p class="message__text">@message.Content</p> *@
+        @*         <div class="message__functions"> *@
+        @*             <img alt="sound" *@
+        @*                  @onclick="async () => await _speechService.SpeakTextAsync(message.Content)" *@
+        @*                  src="images/sound.svg" /> *@
+        @*             <img alt="translate" *@
+        @*                  @onclick="() => message.ShowTranslation = !message.ShowTranslation" *@
+        @*                  src="images/translate.svg" /> *@
+        @*             <img alt="translate" *@
+        @*                  @onclick="RClick" *@
+        @*                  src="images/translate.svg" /> *@
+        @*         </div> *@
+        @*         @if (message.ShowTranslation && message.HasTranslated) { *@
+        @*             <hr /> *@
+        @*             <p>@message.Translation</p> *@
+        @*         } *@
+        @*     </div> *@
+        @* } *@
+        <div class="record-region @(_showRecordRegion ? "is-open" : string.Empty)">
+            <button class="record-region__button" @onclick="StartRecording">
+                <img alt="microphone"
+                     src="images/microphone.svg" />
+            </button>
+        </div>
+    </div>
+    <div @ref="_recordRegion"></div>
+</div>
+
+@* <div class="input-frame">@_output</div> *@

@@ -1,0 +1,456 @@
+﻿@page "/"
+@layout MainLayout
+@inject NavigationManager _navigationManager
+@inject IParcelBoxService _parcelBoxService
+
+<PageTitle>AI Chat</PageTitle>
+
+<div class="ai-chat-page">
+    <Cards Items="_scenes">
+        <ItemTemplate>
+            <SceneCard OnClick="@(() => { var sceneKey = _parcelBoxService.Put(@context); _navigationManager.NavigateTo($"conversation/{sceneKey}"); })"
+                       Scene="@context" />
+        </ItemTemplate>
+    </Cards>
+</div>
+
+@code {
+
+    private List<Scene> _scenes = [
+        #region 情景数据
+
+        new() {
+            SceneName = "开学报到",
+            MyRole = "Tom",
+            AIRole = "Emily",
+            SceneDescription = "School has started now and this is the first day of registration. You and I met and greeted you at school.",
+            ImageUrl = "images/scripts/schoolOpens.svg"
+        }
+
+        #endregion
+    ];
+
+    private List<Topic> _topics = new();
+
+    private List<CharacterScript> _characterScripts = [
+        #region 剧本数据
+
+        new() {
+            ScriptName = "开学报到",
+            ImageUrl = "images/scripts/schoolOpens.svg",
+            OwnName = "Tom",
+            OtherNames = ["Emily"],
+            Conversation = [
+                new() { SpeakerName = "Emily", Content = "Good morning! How can I help you today?" },
+                new() { SpeakerName = "Tom", Content = "Hi, I'm Tom. I'm here to register for classes." },
+                new() { SpeakerName = "Emily", Content = "Welcome, Tom! We're glad to have you. Let me pull up your information. [Types on the computer] Ah, here we go. Are you excited to start your classes?" },
+                new() { SpeakerName = "Tom", Content = "Yeah, a bit nervous, to be honest. But also excited." },
+                new() { SpeakerName = "Emily", Content = "Perfectly normal to feel that way. Let's get you sorted. First, I'll need some basic information. Your full name, please?" },
+                new() { SpeakerName = "Tom", Content = "Tom Anderson." },
+                new() { SpeakerName = "Emily", Content = "Great, Tom Anderson. And your date of birth?" },
+                new() { SpeakerName = "Tom", Content = "September 12th, 2006." },
+                new() { SpeakerName = "Emily", Content = "Got it. Now, do you have your previous school records with you?" },
+                new() { SpeakerName = "Tom", Content = "Yes, I brought them. [Hands over the documents]" },
+                new() { SpeakerName = "Emily", Content = "Excellent. I'll just take a quick look. [Flips through the documents] Everything seems to be in order. Thank you. Now, let's discuss your course preferences. Do you have any subjects you're particularly interested in?" },
+                new() { SpeakerName = "Tom", Content = "I enjoy math and science, but I'm also curious about art." },
+                new() { SpeakerName = "Emily", Content = "We offer a variety of courses in those areas. How about we enroll you in Algebra, Biology, and an Introduction to Art?" },
+                new() { SpeakerName = "Tom", Content = "That sounds perfect!" },
+                new() { SpeakerName = "Emily", Content = "Wonderful choice. Now, let's talk about extracurricular activities. Are you interested in joining any clubs or sports teams?" },
+                new() { SpeakerName = "Tom", Content = "I'm thinking about joining the soccer team." },
+                new() { SpeakerName = "Emily", Content = "Soccer it is! I'll make sure you get the information about tryouts. Now, let's finalize your schedule. You'll have classes Monday through Friday from 8:00 a.m. to 2:30 p.m., with lunch from 12:00 p.m. to 12:45 p.m." },
+                new() { SpeakerName = "Tom", Content = "Sounds good to me." },
+                new() { SpeakerName = "Emily", Content = "Alright, Tom, I'll print out your schedule and give you your student ID. [Prints out the schedule and hands over the ID card] Here you go. You're officially registered!" },
+                new() { SpeakerName = "Tom", Content = "Thank you so much, Emily! I appreciate all your help." },
+                new() { SpeakerName = "Emily", Content = "You're very welcome, Tom. If you have any questions or need assistance during the semester, don't hesitate to stop by." },
+                new() { SpeakerName = "Tom", Content = "I will. Thanks again!" }
+            ]
+        },
+        new() {
+            ScriptName = "图书馆求助",
+            ImageUrl = "images/scripts/libraryHelp.svg",
+            OwnName = "Bob",
+            OtherNames = ["Alice"],
+            Conversation = [
+                new() { SpeakerName = "Alice", Content = "Hello, Bob! How can I help you today?" },
+                new() { SpeakerName = "Bob", Content = "Good afternoon! I'm looking for some information about borrowing books from the library." },
+                new() { SpeakerName = "Alice", Content = "OK! I can assist you with that. What specifically would you like to know about borrowing books?" },
+                new() { SpeakerName = "Bob", Content = "I'd like to know how many books I can borrow at a time and for how long I can keep them." },
+                new() { SpeakerName = "Alice", Content = "You can borrow up to three books at a time, and the lending period is two weeks. Renewals are possible if there are no holds on the books." },
+                new() { SpeakerName = "Bob", Content = "That's helpful. What about late fees if I return them after the due date?" },
+                new() { SpeakerName = "Alice", Content = "Late fees are charged per day for each overdue item. It's best to return books on time to avoid any extra charges." },
+                new() { SpeakerName = "Bob", Content = "Got it. Thank you for the information. One more thing, do you have study rooms available in the library?" },
+                new() { SpeakerName = "Alice", Content = "Yes, we do have study rooms that can be reserved in advance. They are equipped with whiteboards and Wi-Fi access for your convenience." },
+                new() { SpeakerName = "Bob", Content = "Great to know. I appreciate your help, Alice." },
+                new() { SpeakerName = "Alice", Content = "You're welcome, Bob. If you have any more questions or need assistance in the future, feel free to ask." }
+            ]
+        },
+        new() {
+            ScriptName = "求职面试准备",
+            ImageUrl = "images/scripts/interviewPreparation.svg",
+            OwnName = "Alex",
+            OtherNames = ["Emma"],
+            Conversation = [
+                new() { SpeakerName = "Emma", Content = "Hello, Alex! Are you ready for your upcoming job interview?" },
+                new() { SpeakerName = "Alex", Content = "Hi, Emma! I've been preparing, but I could use some tips to boost my confidence." },
+                new() { SpeakerName = "Emma", Content = "Of course! One key tip is to research the company thoroughly. Know their values, products, and recent news." },
+                new() { SpeakerName = "Alex", Content = "That makes sense. What about answering common interview questions?" },
+                new() { SpeakerName = "Emma", Content = "Practice answering questions about your strengths, weaknesses, and relevant experiences. Be concise and confident." },
+                new() { SpeakerName = "Alex", Content = "I'll work on that. Any suggestions for questions to ask the interviewer?" },
+                new() { SpeakerName = "Emma", Content = "Ask about the company culture, team dynamics, and potential growth opportunities. It shows your interest in the role." },
+                new() { SpeakerName = "Alex", Content = "Great advice, Emma. Thank you for helping me prepare." },
+                new() { SpeakerName = "Emma", Content = "You're welcome, Alex. Remember to dress professionally, arrive early, and show your enthusiasm during the interview. Good luck!" }
+            ]
+        },
+        new() {
+            ScriptName = "挑选电影",
+            ImageUrl = "images/scripts/pickAMovie.svg",
+            OwnName = "Tom",
+            OtherNames = ["Emily"],
+            Conversation = [
+                new() { SpeakerName = "Emily", Content = "Hello, Tom!" },
+                new() { SpeakerName = "Tom", Content = "Hey Emily, have you decided which movie we should watch this weekend?" },
+                new() { SpeakerName = "Emily", Content = "Hi Tom, I was thinking about watching the new action movie that just came out. What do you think?" },
+                new() { SpeakerName = "Tom", Content = "Sounds good to me! Do you know what time it's playing at the theater?" },
+                new() { SpeakerName = "Emily", Content = "I checked, and it's playing at 7:00 p.m. and 9:30 p.m. on Saturday. Which one works better for you?" },
+                new() { SpeakerName = "Tom", Content = "I prefer the 7:00 p.m. show. Let's plan to meet at the theater around 6:30 p.m. then." },
+                new() { SpeakerName = "Emily", Content = "Great, I'll see you there at 6:30 p.m. Looking forward to it!" },
+                new() { SpeakerName = "Tom", Content = "Me too! Thanks, Emily." }
+            ]
+        },
+        new() {
+            ScriptName = "客户支持",
+            ImageUrl = "images/scripts/customerSupport.svg",
+            OwnName = "Sarah",
+            OtherNames = ["Michael"],
+            Conversation = [
+                new() { SpeakerName = "Michael", Content = "Hello Sarah, I'm having trouble with my internet connection. Can you help me with that?" },
+                new() { SpeakerName = "Sarah", Content = "Of course, Michael. I'll do my best to assist you. Could you please provide me with your account number or username?" },
+                new() { SpeakerName = "Michael", Content = "Sure, my account number is 123456789." },
+                new() { SpeakerName = "Sarah", Content = "Thank you, Michael. Let me check your account status. [Checks the system] It seems like there might be an issue with the router. Have you tried rebooting it?" },
+                new() { SpeakerName = "Michael", Content = "I haven't tried that yet. Let me give it a shot. [Reboots the router] Okay, it's back on now." },
+                new() { SpeakerName = "Sarah", Content = "Great! Let's see if that resolved the issue. Can you try connecting to the internet on your device?" },
+                new() { SpeakerName = "Michael", Content = "It's working now! Thank you so much for your help, Sarah." },
+                new() { SpeakerName = "Sarah", Content = "You're welcome, Michael. If you encounter any more problems, feel free to reach out to us anytime." },
+                new() { SpeakerName = "Michael", Content = "Will do. Thanks again!" }
+            ]
+        },
+        new() {
+            ScriptName = "求职面试",
+            ImageUrl = "images/scripts/jobWanted.svg",
+            OwnName = "Alex",
+            OtherNames = ["Hiring Manager"],
+            Conversation = [
+                new() { SpeakerName = "Hiring Manager", Content = "Good morning, Alex. Thank you for coming in today. Let's start by discussing your previous work experience and how it aligns with the role you're applying for." },
+                new() { SpeakerName = "Alex", Content = "Good morning. Thank you for the opportunity. In my previous role at XYZ Company, I was responsible for project management and leading cross-functional teams to deliver successful outcomes. I believe these experiences have equipped me with the skills needed for this position." },
+                new() { SpeakerName = "Hiring Manager", Content = "That sounds impressive. Can you give me an example of a particularly challenging project you managed and how you handled it?" },
+                new() { SpeakerName = "Alex", Content = "Certainly. One project that comes to mind is when we had a tight deadline to deliver a new product launch. I assembled a high-performing team, delegated tasks effectively, and implemented a streamlined communication process. Despite the challenges, we met the deadline and received positive feedback from stakeholders." },
+                new() { SpeakerName = "Hiring Manager", Content = "Excellent. How do you handle conflict within a team, and can you share an example of a time when you successfully resolved a disagreement?" },
+                new() { SpeakerName = "Alex", Content = "Conflict resolution is crucial in any team dynamic. In a previous role, I encountered a disagreement between team members regarding project priorities. I facilitated an open discussion, actively listened to both perspectives, and facilitated a compromise that addressed their concerns while aligning with our goals. The team was able to move forward collaboratively." },
+                new() { SpeakerName = "Hiring Manager", Content = "Impressive approach. Now, let's talk about your strengths and areas for development. How do you perceive your own professional growth, and what steps do you take to continuously improve?" },
+                new() { SpeakerName = "Alex", Content = "I consider adaptability and continuous learning as my strengths. I actively seek feedback, engage in professional development opportunities, and stay updated on industry trends. I believe in setting measurable goals and regularly reflecting on my performance to identify areas for improvement." },
+                new() { SpeakerName = "Hiring Manager", Content = "It's great to hear that. Finally, why do you think you're the right fit for this role, and what do you hope to achieve if you join our team?" },
+                new() { SpeakerName = "Alex", Content = "I'm passionate about the company's mission and vision, and I believe my background in project management and my dedication to delivering high-quality results make me a strong fit for this role. If given the opportunity, I aim to contribute to the team's success, drive innovation, and collaborate with colleagues to achieve our collective goals." },
+                new() { SpeakerName = "Hiring Manager", Content = "Thank you, Alex. Your responses have been very insightful. We will be in touch regarding the next steps in the hiring process." },
+                new() { SpeakerName = "Alex", Content = "Thank you for considering my application. I look forward to the possibility of joining your team." }
+            ]
+        },
+        new() {
+            ScriptName = "谈判会议",
+            ImageUrl = "images/scripts/negotiationMeetings.svg",
+            OwnName = "Emily",
+            OtherNames = ["Client"],
+            Conversation = [
+                new() { SpeakerName = "Emily", Content = "Good afternoon, thank you for meeting with me today to discuss the proposal. I believe we can find a mutually beneficial agreement that meets both our needs." },
+                new() { SpeakerName = "Client", Content = "Good afternoon, Emily. I appreciate your willingness to work together. Let's go over the details of the proposal and see where we can find common ground." },
+                new() { SpeakerName = "Emily", Content = "Certainly. Our proposal includes a comprehensive package of services that align with your business objectives. We have carefully considered your requirements and tailored our offer to provide maximum value." },
+                new() { SpeakerName = "Client", Content = "I understand the value you bring, but the budget constraints on our end are a concern. Is there room for flexibility in the pricing or scope of services?" },
+                new() { SpeakerName = "Emily", Content = "We value our partnership and are open to discussing options that accommodate your budget while maintaining the quality of service. Perhaps we can explore a phased approach or prioritize key deliverables to address your immediate needs." },
+                new() { SpeakerName = "Client", Content = "That sounds reasonable. I also have some specific requests regarding the timeline for implementation and ongoing support. Can we address those as well?" },
+                new() { SpeakerName = "Emily", Content = "Absolutely, we want to ensure a seamless transition and provide the necessary support throughout the process. Let's review the timeline and support options to address your concerns and make any necessary adjustments." },
+                new() { SpeakerName = "Client", Content = "I appreciate your willingness to collaborate on this. I believe we can reach a positive outcome that benefits both parties. Let's work together to finalize the details and move forward with the partnership." },
+                new() { SpeakerName = "Emily", Content = "Thank you for your flexibility and partnership. I look forward to finalizing the agreement and starting this journey together. I will follow up with a revised proposal that incorporates our discussions." },
+                new() { SpeakerName = "Client", Content = "Thank you, Emily. I am confident that our collaboration will be successful. I await the revised proposal and am excited about the potential opportunities ahead." },
+                new() { SpeakerName = "Emily", Content = "Likewise. I will ensure that the revised proposal addresses all your requirements. Thank you for a productive meeting today." }
+            ]
+        },
+        new() {
+            ScriptName = "客户支持电话",
+            ImageUrl = "images/scripts/customerSupportPhone.svg",
+            OwnName = "Sarah",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Sarah", Content = "Hello, thank you for calling customer support. This is Sarah. How can I assist you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi Sarah, I'm experiencing issues with my account login. I can't seem to access my information." },
+                new() { SpeakerName = "Sarah", Content = "I apologize for the inconvenience. Let me look into that for you. Could you please provide me with your account details so I can investigate further?" },
+                new() { SpeakerName = "Customer", Content = "Sure, my username is 'customer123' and my email is customer123@email.com." },
+                new() { SpeakerName = "Sarah", Content = "Thank you for the information. Let me check on this right away. Please stay on the line while I resolve the issue for you." },
+                new() { SpeakerName = "Customer", Content = "Thank you, Sarah. I appreciate your help with this matter." },
+                new() { SpeakerName = "Sarah", Content = "I've identified the issue with your account and have reset your login credentials. You should now be able to access your information without any problems. Please try logging in again and let me know if everything is working correctly." },
+                new() { SpeakerName = "Customer", Content = "Great, it's working now. Thank you so much for your quick assistance, Sarah. I really appreciate it." },
+                new() { SpeakerName = "Sarah", Content = "You're welcome! I'm glad I could help resolve the issue for you. If you have any more questions or encounter any other issues, feel free to reach out to us anytime. Have a wonderful day!" },
+                new() { SpeakerName = "Customer", Content = "Thank you, Sarah. You too, have a great day!" }
+            ]
+        },
+        new() {
+            ScriptName = "餐厅预订",
+            ImageUrl = "images/scripts/restaurantReservation.svg",
+            OwnName = "Host",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Host", Content = "Good evening, thank you for calling Fine Dining Restaurant. How can I assist you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi, I'd like to make a reservation for two for this Saturday at 7:00 pm." },
+                new() { SpeakerName = "Host", Content = "Certainly, let me check our availability for that time. May I have your name, please?" },
+                new() { SpeakerName = "Customer", Content = "My name is John Smith." },
+                new() { SpeakerName = "Host", Content = "Thank you, Mr. Smith. We have a table available for two at 7:00 pm on Saturday. Is there any special occasion or any dietary restrictions I should be aware of?" },
+                new() { SpeakerName = "Customer", Content = "It's our anniversary, so if you could arrange something special, that would be great. Also, my wife is allergic to shellfish." },
+                new() { SpeakerName = "Host", Content = "Noted. We'll make sure to prepare something special for your anniversary and ensure that there are no shellfish in the dishes. Your reservation for Saturday at 7:00 pm is confirmed. We look forward to welcoming you both!" },
+                new() { SpeakerName = "Customer", Content = "Thank you so much. We're looking forward to it as well. See you on Saturday!" },
+                new() { SpeakerName = "Host", Content = "Thank you, Mr. Smith. Have a wonderful day!" }
+            ]
+        },
+        new() {
+            ScriptName = "求职面试",
+            ImageUrl = "images/scripts/jobWanted.svg",
+            OwnName = "Interviewer",
+            OtherNames = ["Candidate"],
+            Conversation = [
+                new() { SpeakerName = "Interviewer", Content = "Good morning, thank you for coming in for the job interview. Please have a seat." },
+                new() { SpeakerName = "Candidate", Content = "Good morning, thank you for having me. I'm excited to be here." },
+                new() { SpeakerName = "Interviewer", Content = "Let's start by discussing your previous work experience and how it aligns with the position you're applying for." },
+                new() { SpeakerName = "Candidate", Content = "I have experience in project management and team collaboration, which I believe will be valuable for this role." },
+                new() { SpeakerName = "Interviewer", Content = "That's great to hear. Can you provide an example of a challenging project you've worked on and how you handled it?" },
+                new() { SpeakerName = "Candidate", Content = "Sure, there was a project where we had tight deadlines, and I organized daily stand-up meetings to ensure progress and meet the timeline." },
+                new() { SpeakerName = "Interviewer", Content = "Impressive. How do you handle stress and pressure in the workplace?" },
+                new() { SpeakerName = "Candidate", Content = "I prioritize tasks, practice mindfulness, and communicate openly with my team to manage stress effectively." },
+                new() { SpeakerName = "Interviewer", Content = "Excellent approach. Now, let's discuss your long-term career goals and how this position fits into your plans." },
+                new() { SpeakerName = "Candidate", Content = "My goal is to grow as a leader in project management, and this position offers the opportunity to develop my skills in that area." },
+                new() { SpeakerName = "Interviewer", Content = "That aligns well with our company's growth opportunities. Do you have any questions for me about the role or the company?" },
+                new() { SpeakerName = "Candidate", Content = "Yes, could you tell me more about the team dynamics and the company culture here?" },
+                new() { SpeakerName = "Interviewer", Content = "Our team is collaborative and supportive, and we value innovation and continuous learning. It's a dynamic environment where employees are encouraged to grow and excel." },
+                new() { SpeakerName = "Candidate", Content = "That sounds like a great fit for me. I appreciate the insights. Thank you for the opportunity to interview with your company." },
+                new() { SpeakerName = "Interviewer", Content = "Thank you for your time and thoughtful responses. We will be in touch regarding the next steps in the hiring process. Have a wonderful day." },
+                new() { SpeakerName = "Candidate", Content = "You too. Have a great day!" }
+            ]
+        },
+        new() {
+            ScriptName = "技术支持",
+            ImageUrl = "images/scripts/technicalSupport.svg",
+            OwnName = "Support Agent",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Support Agent", Content = "Hello, thank you for calling Tech Support. How can I assist you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi, I'm having trouble connecting to the internet on my laptop." },
+                new() { SpeakerName = "Support Agent", Content = "I'm sorry to hear that. Let's troubleshoot the issue together. Have you tried restarting your router?" },
+                new() { SpeakerName = "Customer", Content = "Yes, I've already tried that, but it didn't solve the problem." },
+                new() { SpeakerName = "Support Agent", Content = "Okay. Could you check if other devices in your home are able to connect to the internet?" },
+                new() { SpeakerName = "Customer", Content = "Sure, let me check. Yes, my smartphone is connected, but not my laptop." },
+                new() { SpeakerName = "Support Agent", Content = "That indicates the issue might be with your laptop. Have you recently installed any updates or new software?" },
+                new() { SpeakerName = "Customer", Content = "Now that you mention it, I did install some updates yesterday." },
+                new() { SpeakerName = "Support Agent", Content = "It's possible that the updates caused a compatibility issue. Can you try rolling back those updates and see if it resolves the problem?" },
+                new() { SpeakerName = "Customer", Content = "I'll give it a try and let you know. Hold on, please." },
+                new() { SpeakerName = "Support Agent", Content = "Take your time." },
+                new() { SpeakerName = "Customer", Content = "I uninstalled the updates, and now I'm able to connect to the internet. Thank you!" },
+                new() { SpeakerName = "Support Agent", Content = "You're welcome! I'm glad the issue is resolved. Is there anything else I can help you with?" },
+                new() { SpeakerName = "Customer", Content = "No, that was the main problem. I appreciate your assistance." },
+                new() { SpeakerName = "Support Agent", Content = "It was my pleasure. Don't hesitate to contact us if you need any further assistance. Have a great day!" },
+                new() { SpeakerName = "Customer", Content = "Thank you, you too. Goodbye!" },
+                new() { SpeakerName = "Support Agent", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "购物",
+            ImageUrl = "images/scripts/shopping.svg",
+            OwnName = "Sales Associate",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Sales Associate", Content = "Welcome to our store! How can I assist you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi, I'm looking for a new pair of running shoes." },
+                new() { SpeakerName = "Sales Associate", Content = "Great choice! What size are you looking for?" },
+                new() { SpeakerName = "Customer", Content = "I usually wear a size 9." },
+                new() { SpeakerName = "Sales Associate", Content = "Let me show you some options in that size. Do you prefer any specific color?" },
+                new() { SpeakerName = "Customer", Content = "I like blue or black shoes." },
+                new() { SpeakerName = "Sales Associate", Content = "Perfect, I have a couple of styles in blue and black. Are you looking for a specific brand?" },
+                new() { SpeakerName = "Customer", Content = "I prefer Adidas or Nike." },
+                new() { SpeakerName = "Sales Associate", Content = "I'll bring you some Adidas and Nike options to compare. Do you need any other sports gear today?" },
+                new() { SpeakerName = "Customer", Content = "No, just the shoes for now." },
+                new() { SpeakerName = "Sales Associate", Content = "Alright, let's check out these shoes. Feel free to try them on and see how they feel." },
+                new() { SpeakerName = "Customer", Content = "These Adidas ones feel great. I'll take them!" },
+                new() { SpeakerName = "Sales Associate", Content = "Excellent choice! Let me ring you up at the counter. Do you have our loyalty card?" },
+                new() { SpeakerName = "Customer", Content = "Yes, here it is." },
+                new() { SpeakerName = "Sales Associate", Content = "Thank you. Your total is $75. Will that be cash or card today?" },
+                new() { SpeakerName = "Customer", Content = "I'll pay with my card, please." },
+                new() { SpeakerName = "Sales Associate", Content = "All set! Thank you for shopping with us. Enjoy your new shoes!" },
+                new() { SpeakerName = "Customer", Content = "Thank you for your help. Have a great day!" },
+                new() { SpeakerName = "Sales Associate", Content = "You're welcome. Come back anytime you need anything. Goodbye!" },
+                new() { SpeakerName = "Customer", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "餐厅预订",
+            ImageUrl = "images/scripts/restaurantReservation.svg",
+            OwnName = "Hostess",
+            OtherNames = ["Guest"],
+            Conversation = [
+                new() { SpeakerName = "Hostess", Content = "Good evening! Do you have a reservation with us tonight?" },
+                new() { SpeakerName = "Guest", Content = "Yes, under the name Smith for a party of two." },
+                new() { SpeakerName = "Hostess", Content = "Wonderful, right this way to your table. Would you prefer a booth or a regular table?" },
+                new() { SpeakerName = "Guest", Content = "A booth would be great, thank you." },
+                new() { SpeakerName = "Hostess", Content = "Here is your booth. Your server will be with you shortly. Can I get you any drinks to start?" },
+                new() { SpeakerName = "Guest", Content = "I'll have a glass of red wine, please." },
+                new() { SpeakerName = "Hostess", Content = "Certainly, I'll let your server know. Are you celebrating a special occasion tonight?" },
+                new() { SpeakerName = "Guest", Content = "It's our anniversary actually." },
+                new() { SpeakerName = "Hostess", Content = "Congratulations! I'll inform the kitchen. Do you have any dietary restrictions we should be aware of?" },
+                new() { SpeakerName = "Guest", Content = "No, we're good with everything on the menu." },
+                new() { SpeakerName = "Hostess", Content = "Great to hear. Enjoy your evening and feel free to call me if you need anything." },
+                new() { SpeakerName = "Guest", Content = "Thank you so much. We're looking forward to our meal." },
+                new() { SpeakerName = "Hostess", Content = "My pleasure. Have a wonderful anniversary celebration. Goodbye!" },
+                new() { SpeakerName = "Guest", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "技术支持电话",
+            ImageUrl = "images/scripts/technicalSupport.svg",
+            OwnName = "Tech Support",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Tech Support", Content = "Thank you for calling tech support. How can I assist you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi, my internet seems to be down. I can't connect to any websites." },
+                new() { SpeakerName = "Tech Support", Content = "Let's troubleshoot that for you. Have you tried restarting your router?" },
+                new() { SpeakerName = "Customer", Content = "Yes, I've already tried that a couple of times." },
+                new() { SpeakerName = "Tech Support", Content = "Okay, let's check a few settings on your computer. Can you go to your network preferences?" },
+                new() { SpeakerName = "Customer", Content = "Sure, I'm there now." },
+                new() { SpeakerName = "Tech Support", Content = "Do you see your Wi-Fi network listed? Let's try reconnecting to it." },
+                new() { SpeakerName = "Customer", Content = "I've reconnected, but it's still not working." },
+                new() { SpeakerName = "Tech Support", Content = "It might be an issue with your ISP. Have you contacted them about this problem?" },
+                new() { SpeakerName = "Customer", Content = "Not yet. I'll give them a call after this. Thank you for your help." },
+                new() { SpeakerName = "Tech Support", Content = "No problem. If you have any other questions, feel free to reach out. Have a good day!" },
+                new() { SpeakerName = "Customer", Content = "Thanks, you too. Goodbye." },
+                new() { SpeakerName = "Tech Support", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "咖啡店对话",
+            ImageUrl = "images/scripts/coffeeShopConversation.svg",
+            OwnName = "Barista",
+            OtherNames = ["Customer"],
+            Conversation = [
+                new() { SpeakerName = "Barista", Content = "Good morning! What can I get for you today?" },
+                new() { SpeakerName = "Customer", Content = "Hi, I'll have a medium latte to go, please." },
+                new() { SpeakerName = "Barista", Content = "Sure thing. Would you like any flavor syrup in your latte?" },
+                new() { SpeakerName = "Customer", Content = "Yes, can I have caramel syrup, please?" },
+                new() { SpeakerName = "Barista", Content = "Of course. And would you like any pastry with that?" },
+                new() { SpeakerName = "Customer", Content = "I'll take a chocolate croissant as well, thanks." },
+                new() { SpeakerName = "Barista", Content = "Great choice. Your total comes to $7.50. How will you be paying today?" },
+                new() { SpeakerName = "Customer", Content = "I'll pay with my card, please." },
+                new() { SpeakerName = "Barista", Content = "All set. Here's your latte and croissant. Have a wonderful day!" },
+                new() { SpeakerName = "Customer", Content = "Thank you so much. Have a good one!" },
+                new() { SpeakerName = "Barista", Content = "You're welcome. Take care!" },
+                new() { SpeakerName = "Customer", Content = "Goodbye!" },
+                new() { SpeakerName = "Barista", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "公园相遇",
+            ImageUrl = "images/scripts/meetInThePark.svg",
+            OwnName = "Park Visitor",
+            OtherNames = ["Fellow Park Visitor"],
+            Conversation = [
+                new() { SpeakerName = "Park Visitor", Content = "Hello! Lovely day for a walk in the park, isn't it?" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "Absolutely, the weather is perfect. Are you enjoying your stroll?" },
+                new() { SpeakerName = "Park Visitor", Content = "Yes, it's so peaceful here. Do you come to this park often?" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "I do. It's a great place to relax and unwind. Have you seen the ducks at the pond?" },
+                new() { SpeakerName = "Park Visitor", Content = "Yes, they're adorable. I love watching them swim around. Have you tried feeding them?" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "I haven't, but that sounds like a fun idea. Maybe I'll give it a try today." },
+                new() { SpeakerName = "Park Visitor", Content = "You should! It's quite entertaining. By the way, do you know if there's a restroom nearby?" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "Yes, there's one near the entrance on the left. Just follow the path." },
+                new() { SpeakerName = "Park Visitor", Content = "Great, thank you for the directions. Enjoy the rest of your day at the park!" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "Thanks, you too. Take care and have a wonderful time here!" },
+                new() { SpeakerName = "Park Visitor", Content = "Goodbye!" },
+                new() { SpeakerName = "Fellow Park Visitor", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "杂货店聊天",
+            ImageUrl = "images/scripts/groceryStoreChat.svg",
+            OwnName = "Shopper",
+            OtherNames = ["Store Clerk"],
+            Conversation = [
+                new() { SpeakerName = "Shopper", Content = "Hello! Do you know where I can find the pasta aisle?" },
+                new() { SpeakerName = "Store Clerk", Content = "Certainly! It's in aisle 5, towards the back of the store." },
+                new() { SpeakerName = "Shopper", Content = "Thank you. I'm also looking for some fresh vegetables. Any recommendations?" },
+                new() { SpeakerName = "Store Clerk", Content = "Our organic produce is quite popular. You'll find it near the entrance." },
+                new() { SpeakerName = "Shopper", Content = "Great, I'll check it out. By the way, do you have any good deals on bread today?" },
+                new() { SpeakerName = "Store Clerk", Content = "Yes, we have a buy one, get one free offer on select breads. They're at the bakery section." },
+                new() { SpeakerName = "Shopper", Content = "Perfect, I'll grab a couple. Thanks for the heads up!" },
+                new() { SpeakerName = "Store Clerk", Content = "You're welcome. Let me know if you need help finding anything else." },
+                new() { SpeakerName = "Shopper", Content = "Will do. Thanks for your assistance. Have a nice day!" },
+                new() { SpeakerName = "Store Clerk", Content = "You too. Enjoy your shopping!" },
+                new() { SpeakerName = "Shopper", Content = "Goodbye!" },
+                new() { SpeakerName = "Store Clerk", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "公交站对话",
+            ImageUrl = "images/scripts/busStopConversation.svg",
+            OwnName = "Passenger",
+            OtherNames = ["Fellow Passenger"],
+            Conversation = [
+                new() { SpeakerName = "Passenger", Content = "Excuse me, is this the bus stop for downtown?" },
+                new() { SpeakerName = "Fellow Passenger", Content = "Yes, it is. The bus should be arriving shortly." },
+                new() { SpeakerName = "Passenger", Content = "Great, thank you. Have you been waiting long?" },
+                new() { SpeakerName = "Fellow Passenger", Content = "Not too long, just a few minutes. Are you heading to work?" },
+                new() { SpeakerName = "Passenger", Content = "Yes, I have an early meeting today. What about you?" },
+                new() { SpeakerName = "Fellow Passenger", Content = "I'm just running some errands downtown. Do you take this bus often?" },
+                new() { SpeakerName = "Passenger", Content = "Occasionally. It's convenient for getting to the city center. Oh, here comes the bus!" },
+                new() { SpeakerName = "Fellow Passenger", Content = "Finally, our ride is here. I hope you make it to your meeting on time." },
+                new() { SpeakerName = "Passenger", Content = "Thank you. Good luck with your errands. Have a good day!" },
+                new() { SpeakerName = "Fellow Passenger", Content = "You too. Safe travels and take care!" },
+                new() { SpeakerName = "Passenger", Content = "Goodbye!" },
+                new() { SpeakerName = "Fellow Passenger", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "咖啡店聊天",
+            ImageUrl = "images/scripts/coffeeShopConversation.svg",
+            OwnName = "Customer",
+            OtherNames = ["Barista"],
+            Conversation = [
+                new() { SpeakerName = "Customer", Content = "Hi there! Can I get a large latte to go, please?" },
+                new() { SpeakerName = "Barista", Content = "Of course! Would you like any flavor syrup in it?" },
+                new() { SpeakerName = "Customer", Content = "Hmm, how about caramel syrup? That sounds delicious." },
+                new() { SpeakerName = "Barista", Content = "Good choice. Anything else for you today?" },
+                new() { SpeakerName = "Customer", Content = "No, that's all. Oh, and a chocolate chip cookie, please." },
+                new() { SpeakerName = "Barista", Content = "Got it. Your order will be ready in just a minute." },
+                new() { SpeakerName = "Customer", Content = "Thanks. By the way, do you have any seating available inside?" },
+                new() { SpeakerName = "Barista", Content = "Yes, there are a few tables open near the window." },
+                new() { SpeakerName = "Customer", Content = "Perfect, I might stay for a bit then. Thanks!" },
+                new() { SpeakerName = "Barista", Content = "You're welcome. Enjoy your coffee and cookie!" },
+                new() { SpeakerName = "Customer", Content = "Goodbye!" },
+                new() { SpeakerName = "Barista", Content = "Goodbye!" }
+            ]
+        },
+        new() {
+            ScriptName = "学校对话",
+            ImageUrl = "images/scripts/schoolDialogue.svg",
+            OwnName = "Student",
+            OtherNames = ["Classmate"],
+            Conversation = [
+                new() { SpeakerName = "Student", Content = "Hey! Did you finish the math homework last night?" },
+                new() { SpeakerName = "Classmate", Content = "Oh no, I completely forgot about it. Is it due today?" },
+                new() { SpeakerName = "Student", Content = "Yeah, our teacher wants to collect it during the first period." },
+                new() { SpeakerName = "Classmate", Content = "I'm in trouble then. Do you think the teacher will accept it late?" },
+                new() { SpeakerName = "Student", Content = "It's worth a shot. Maybe explain the situation and ask for an extension." },
+                new() { SpeakerName = "Classmate", Content = "I'll give it a try. Thanks for reminding me, though!" },
+                new() { SpeakerName = "Student", Content = "No problem. We're all in this together. Good luck!" },
+                new() { SpeakerName = "Classmate", Content = "Thanks. Hopefully, the teacher will understand." },
+                new() { SpeakerName = "Student", Content = "Fingers crossed. Let's head to class now. We don't want to be late." },
+                new() { SpeakerName = "Classmate", Content = "Agreed. We better hustle. See you in class!" },
+                new() { SpeakerName = "Student", Content = "Goodbye!" },
+                new() { SpeakerName = "Classmate", Content = "Goodbye!" }
+            ]
+        }
+
+        #endregion
+    ];
+
+}

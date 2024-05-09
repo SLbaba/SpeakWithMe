@@ -1,0 +1,15 @@
+﻿@using SpeakWithMe.Library.Models
+
+<div class="card" @onclick="OnClick">
+    <p class="card__title">@CharacterScript.ScriptName</p>
+    <img class="card__script-icon" src="@CharacterScript.ImageUrl" alt="@CharacterScript.ScriptName" />
+    <img class="card__favorite-icon" src="images/favorite.svg" alt="favorite" />
+</div>
+
+@code {
+    [Parameter,EditorRequired]
+    public required CharacterScript CharacterScript { get; set; }   
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}
