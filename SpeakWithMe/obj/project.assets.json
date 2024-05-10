@@ -1,0 +1,154 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-android": {},
+    "net8.0-ios": {},
+    "net8.0-maccatalyst": {},
+    "net8.0-windows10.0.19041": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net8.0-android": [],
+    "net8.0-ios": [],
+    "net8.0-maccatalyst": [],
+    "net8.0-windows10.0.19041": []
+  },
+  "packageFolders": {
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe\\SpeakWithMe.csproj",
+      "projectName": "SpeakWithMe",
+      "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe\\SpeakWithMe.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe\\obj\\",
+      "projectStyle": "PackageReference",
+      "crossTargeting": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-android",
+        "net8.0-ios",
+        "net8.0-maccatalyst",
+        "net8.0-windows10.0.19041.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-android": {
+          "targetAlias": "net8.0-android",
+          "projectReferences": {
+            "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj": {
+              "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj"
+            }
+          }
+        },
+        "net8.0-ios": {
+          "targetAlias": "net8.0-ios",
+          "projectReferences": {
+            "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj": {
+              "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj"
+            }
+          }
+        },
+        "net8.0-maccatalyst": {
+          "targetAlias": "net8.0-maccatalyst",
+          "projectReferences": {
+            "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj": {
+              "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj"
+            }
+          }
+        },
+        "net8.0-windows10.0.19041": {
+          "targetAlias": "net8.0-windows10.0.19041.0",
+          "projectReferences": {
+            "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj": {
+              "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0-android": {
+        "targetAlias": "net8.0-android",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      },
+      "net8.0-ios": {
+        "targetAlias": "net8.0-ios",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      },
+      "net8.0-maccatalyst": {
+        "targetAlias": "net8.0-maccatalyst",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      },
+      "net8.0-windows10.0.19041": {
+        "targetAlias": "net8.0-windows10.0.19041.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1012",
+      "level": "Error",
+      "message": "一个或多个目标框架的平台版本未显示，但它们已指定平台: net8.0-android, net8.0-ios, net8.0-maccatalyst"
+    }
+  ]
+}

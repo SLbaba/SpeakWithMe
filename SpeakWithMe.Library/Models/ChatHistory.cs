@@ -5,6 +5,7 @@ namespace SpeakWithMe.Library.Models;
 /// <summary>
 /// 聊天记录
 /// </summary>
+/// 
 public class ChatHistory {
     public ChatHistory() { }
     public ChatHistory(List<Message> messages) => Messages = messages;
@@ -44,6 +45,7 @@ public class ChatHistory {
         public const string System = "system";
     }
 }
+
 
 /// <summary>
 /// 消息

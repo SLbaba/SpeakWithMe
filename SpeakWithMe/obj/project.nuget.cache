@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "wU3dn19YVbpxTrRxgMMFSVODkmnAkza+jRoADERXxEcyM11CIix7ZZ5si2cVwQYhpqJE5GMa1ufAgNm1CBtNVQ==",
+  "success": false,
+  "projectFilePath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe\\SpeakWithMe.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1012",
+      "level": "Error",
+      "message": "一个或多个目标框架的平台版本未显示，但它们已指定平台: net8.0-android, net8.0-ios, net8.0-maccatalyst"
+    }
+  ]
+}

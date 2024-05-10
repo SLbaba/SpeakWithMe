@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "SpeakWithMe.Library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/SpeakWithMe.Library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SpeakWithMe.Library.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SpeakWithMe.Library/1.0.0": {
+      "type": "project",
+      "path": "../SpeakWithMe.Library/SpeakWithMe.Library.csproj",
+      "msbuildProject": "../SpeakWithMe.Library/SpeakWithMe.Library.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "SpeakWithMe.Library >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Web\\SpeakWithMe.Web.csproj",
+      "projectName": "SpeakWithMe.Web",
+      "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Web\\SpeakWithMe.Web.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Web\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj": {
+              "projectPath": "D:\\SLbaba\\大学资料\\大学\\大三下\\软件工程\\SpeakWithMe\\SpeakWithMe.Library\\SpeakWithMe.Library.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
