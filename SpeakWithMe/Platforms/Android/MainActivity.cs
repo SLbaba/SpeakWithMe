@@ -18,5 +18,7 @@ namespace SpeakWithMe
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
         }
+
+        
     }
 }

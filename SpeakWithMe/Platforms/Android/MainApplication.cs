@@ -14,3 +14,4 @@ namespace SpeakWithMe
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
     }
 }
+
